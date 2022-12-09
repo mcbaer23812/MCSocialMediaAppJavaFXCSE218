@@ -31,7 +31,7 @@ public class Main extends Application {
 	public void init() {
 		UserData.getInstance();
 	}
-	
+	//
 	@Override
 	public void stop() throws Exception{
 		UserData.getInstance().saveUserData();
