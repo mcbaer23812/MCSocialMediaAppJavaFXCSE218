@@ -72,11 +72,13 @@ public class MainSceneController {
     
     public void signUp(ActionEvent event) {
     	try {
+   			Stage stage = (Stage)signupBtn.getScene().getWindow();
+   			stage.close();
 			Parent root = FXMLLoader.load(getClass().getResource("/views/SignupPage.fxml"));
 			Scene scene = new Scene(root,425,400);
 			String mainSceneCSS = getClass().getResource("/views/signupPage.css").toExternalForm();
 			scene.getStylesheets().add(mainSceneCSS);
-			Stage stage = new Stage();
+			stage = new Stage();
 			stage.setResizable(true);
 			stage.setScene(scene);
 			stage.show();

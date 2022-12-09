@@ -12,7 +12,7 @@ public class Main extends Application {
 		try {
 			primaryStage.setResizable(true);
 			Parent root = FXMLLoader.load(getClass().getResource("/views/MainScene.fxml"));
-			Scene scene = new Scene(root,400,300);
+			Scene scene = new Scene(root,425,400);
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			String mainSceneCSS = getClass().getResource("/views/mainScene.css").toExternalForm();
 			scene.getStylesheets().add(mainSceneCSS);
