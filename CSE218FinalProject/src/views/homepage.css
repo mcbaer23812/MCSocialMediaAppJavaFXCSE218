@@ -1,0 +1,58 @@
+#homePageBackground, #postListView, #contentTA, #searchTF{
+	-fx-text-fill: white;
+	-fx-font-family: sans-serif;
+	-fx-background-color: linear-gradient(to bottom, #2b3259, #222745);
+}
+
+.button{
+	-fx-border-radius: 10 10 10 10;
+	-fx-background-radius: 10 10 10 10;
+	-fx-background-color: white;
+	-fx-border-width: 3;
+	-fx-border-color: white;
+	-fx-background-insets: 1;
+}
+
+.button:hover{
+	-fx-font-weight: bold;
+	-fx-background-radius: 20;
+	-fx-font-size: 13;
+}
+
+.hyperlink{
+	-fx-text-fill: white;
+}
+
+.label{
+	-fx-font-size: 18;
+	-fx-text-fill: white;
+}
+
+.list-view{
+	-fx-border-color: white;
+	-fx-background-insets: 5,5;
+	-fx-padding: 10;
+}
+
+.list-view .list-cell:even{
+	-fx-background-color: linear-gradient(to bottom, #2b3259, #222745);
+	-fx-border-color: white;
+	-fx-background-insets: 5,5;
+	-fx-padding: 10;
+	-fx-font-size: 18;
+}
+
+.list-view .list-cell:odd{
+	-fx-background-color: linear-gradient(to bottom, #2b3259, #222745);
+	-fx-border-color: white;
+	-fx-background-insets: 5,5;
+	-fx-padding: 10;
+	-fx-font-size: 18;
+}
+
+.text-area .content{
+	-fx-background-color: linear-gradient(to bottom, #2b3259, #222745);
+	-fx-border-color: white;
+	-fx-background-insets: 0,1;
+	-fx-padding: 1;
+}

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<GridPane fx:id="homePageBackground" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomePageController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1203.0" minWidth="10.0" prefWidth="1203.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="594.0" minWidth="0.0" prefWidth="0.0" />
+      <ColumnConstraints />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="262.0" minHeight="0.0" prefHeight="54.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="770.0" minHeight="10.0" prefHeight="650.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="84.0" minHeight="1.0" prefHeight="47.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <ButtonBar buttonOrder="\%key.unspecified" nodeOrientation="LEFT_TO_RIGHT" prefHeight="61.0" prefWidth="1171.0">
+                    <buttons>
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Button">
+                           <cursor>
+                              <Cursor fx:constant="OPEN_HAND" />
+                           </cursor></Button>
+                      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Button">
+                           <cursor>
+                              <Cursor fx:constant="OPEN_HAND" />
+                           </cursor></Button>
+                        <TextField fx:id="searchTF" promptText="Search">
+                           <cursor>
+                              <Cursor fx:constant="DEFAULT" />
+                           </cursor></TextField>
+                    </buttons>
+                  </ButtonBar>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" prefHeight="666.0" prefWidth="1202.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+         <children>
+            <ListView fx:id="postListView" prefHeight="550.0" prefWidth="625.0" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="35.0">
+               <children>
+                  <TextArea fx:id="contentTA" prefHeight="100.0" prefWidth="500.0" wrapText="true" />
+                  <Button fx:id="postBtn" mnemonicParsing="false" onAction="#addPost" text="Post">
+                     <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets left="250.0" right="250.0" />
+         </padding>
+      </VBox>
+   </children>
+</GridPane>
