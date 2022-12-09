@@ -11,7 +11,7 @@
 
 <AnchorPane fx:id="mainSceneBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainSceneController">
    <children>
-      <VBox layoutX="104.0" layoutY="82.0" prefHeight="198.0" prefWidth="260.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="85.0">
+      <VBox layoutX="70.0" layoutY="53.0" prefHeight="198.0" prefWidth="260.0" AnchorPane.bottomAnchor="52.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="53.0">
          <children>
             <HBox alignment="CENTER" prefHeight="38.0" prefWidth="260.0">
                <children>

@@ -1,0 +1,41 @@
+.button:hover{
+	-fx-background-color: linear-gradient(to bottom, #2b3259, #222745);
+	-fx-font-family: sans-serif;
+	-fx-font-weight: bold;
+	-fx-background-radius: 22;
+	-fx-font-size: 13;
+}
+
+#signupSceneBackground{
+	-fx-background-color: linear-gradient(to bottom, #2b3259, #222745);
+}
+
+#signupBtn, #chooseBtn{
+	-fx-background-color: linear-gradient(to bottom, #2b3259, #222745);
+	-fx-font-family: sans-serif;
+	-fx-border-radius: 10 10 10 10;
+	-fx-background-radius: 10 10 10 10;
+	-fx-background-color: white;
+	-fx-border-width: 3;
+	-fx-border-color: white;
+	-fx-background-insets: 1;
+}
+
+#titleLbl{
+	-fx-text-fill: white;
+	-fx-font-family: sans-serif;
+	-fx-font-size: 30;
+}
+
+#usernameTF, #passwordTF, #confirmPasswordTF{
+	-fx-background-color: linear-gradient(to bottom, #2b3259, #222745);
+	-fx-text-fill: white;
+	-fx-font-family: sans-serif;
+	-fx-border-radius: 5 5 5 5;
+  	-fx-background-radius: 5 5 5 5;
+	-fx-pref-width:157;
+	-fx-pref-height:25;
+	-fx-border-width: 3;
+	-fx-border-color: white;
+	-fx-background-insets: 1;
+}

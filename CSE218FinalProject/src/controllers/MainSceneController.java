@@ -71,40 +71,17 @@ public class MainSceneController {
     }
     
     public void signUp(ActionEvent event) {
-    	String username = usernameTF.getText();
-    	if(username.length() > 64) {
-    		Alert signupFailed = new Alert(AlertType.ERROR);
-    		signupFailed.setContentText("Username has more than 64 characters");
-    		signupFailed.setHeaderText("User signup failed!");
-    		signupFailed.show();
-    	} else {
-        	UserData.getInstance();
-        	if(UserData.getInstance().returnUserObject(username) != null) {
-        		Alert signupFailed = new Alert(AlertType.ERROR);
-        		signupFailed.setContentText("Username is taken");
-        		signupFailed.setHeaderText("User signup failed!");
-        		signupFailed.show();
-        	} else {
-        		String password = passwordTF.getText();
-        		if(password.length() < 6) {
-        			Alert signupFailed = new Alert(AlertType.ERROR);
-            		signupFailed.setContentText("Password has less than 6 characters");
-            		signupFailed.setHeaderText("User signup failed!");
-            		signupFailed.show();
-        		} else if(password.length() > 64) {
-        			Alert signupFailed = new Alert(AlertType.ERROR);
-            		signupFailed.setContentText("Password has more than 64 characters");
-            		signupFailed.setHeaderText("User signup failed!");
-            		signupFailed.show();
-        		} else {
-            		Alert signupSuccess = new Alert(AlertType.INFORMATION);
-            		signupSuccess.setContentText("User signup success");
-            		signupSuccess.setHeaderText("User signup success!");
-            		User user = new User(username, password);
-            		UserData.getInstance().getUserMap().put(username, user);
-            		signupSuccess.show();
-        		}
-        	}
-    	}
+    	try {
+			Parent root = FXMLLoader.load(getClass().getResource("/views/SignupPage.fxml"));
+			Scene scene = new Scene(root,425,400);
+			String mainSceneCSS = getClass().getResource("/views/signupPage.css").toExternalForm();
+			scene.getStylesheets().add(mainSceneCSS);
+			Stage stage = new Stage();
+			stage.setResizable(true);
+			stage.setScene(scene);
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 }
