@@ -8,11 +8,13 @@ import java.util.LinkedList;
 public class User implements Comparator<User>, Serializable{
 	private String username;
 	private String password;
+	private String imageFile;
 	private LinkedList<Post> userPosts;
 	
 	public User(String username, String password) {
 		this.username = username;
 		this.password = password;
+		this.imageFile = "profilePictures/defaultUser.png";
 		this.userPosts = null;
 	}
 	
@@ -41,6 +43,14 @@ public class User implements Comparator<User>, Serializable{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getImageFile() {
+		return imageFile;
+	}
+
+	public void setImageFile(String imageFile) {
+		this.imageFile = imageFile;
 	}
 
 	@Override

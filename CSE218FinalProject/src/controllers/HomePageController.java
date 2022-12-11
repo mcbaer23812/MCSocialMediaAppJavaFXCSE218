@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -14,10 +15,10 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import model.Post;
 import model.UserData;
 
@@ -67,20 +68,35 @@ public class HomePageController implements Initializable{
     			String emptyString = "";
     			Label usernameLabel = new Label(emptyString, usernameLink);
 				Label contentLabel = new Label(post.getContent());
+				
+				File profilePicFile = new File("profilePictures/" + post.getUsername() + ".png");
+				if(profilePicFile.exists() == false) {
+					profilePicFile = new File("profilePictures/defaultUser.png");
+				}
+				Image profilePicImage = new Image(profilePicFile.toURI().toString());
+				ImageView profilePic = new ImageView(profilePicImage);
+				
+				profilePic.setFitWidth(75);
+				profilePic.setFitHeight(75);
     			contentLabel.setPrefWidth(postListView.getPrefWidth());
     			contentLabel.setWrapText(true);
-    			VBox vBox = new VBox();
-    			vBox.setAlignment(Pos.TOP_LEFT);
-    			vBox.getChildren().addAll(
-    					usernameLabel,
+    			HBox userHBox = new HBox();
+    			userHBox.getChildren().addAll(
+    					profilePic,
+    					usernameLabel
+    			);
+    			VBox postVBox = new VBox();
+    			postVBox.setAlignment(Pos.TOP_LEFT);
+    			postVBox.getChildren().addAll(
+    					userHBox,
     					contentLabel,
     					new Label(post.getTime())
     			);
     			
-    			HBox hBox = new HBox();
-    			hBox.setAlignment(Pos.TOP_LEFT);
-    			hBox.getChildren().addAll(vBox);
-    			setGraphic(hBox);
+    			HBox postHBox = new HBox();
+    			postHBox.setAlignment(Pos.TOP_LEFT);
+    			postHBox.getChildren().addAll(postVBox);
+    			setGraphic(postHBox);
     			}
     		}
     	});

@@ -1,5 +1,9 @@
 package controllers;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
@@ -13,8 +17,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.User;
 import model.UserData;
@@ -39,8 +45,20 @@ public class SignupPageController {
 	@FXML
 	private Button closeBtn;
 	
+	private Image image;
+	
+	private String filepath;
+	
     public void chooseProfilePicture(ActionEvent event) {
-
+    	FileChooser chooseImage = new FileChooser();
+    	chooseImage.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg","*.jpeg"));
+    	Stage currentStage = (Stage)chooseBtn.getScene().getWindow();
+    	File imageFile = chooseImage.showOpenDialog(currentStage);
+    	if(imageFile != null) {
+    		this.filepath = imageFile.getAbsolutePath();
+    		this.image = new Image(imageFile.toURI().toString());
+    		profilePicture.setImage(image);
+    	}
     }
 
     public void signUp(ActionEvent event) {
@@ -85,6 +103,24 @@ public class SignupPageController {
             		signupSuccess.setContentText("User signup success");
             		signupSuccess.setHeaderText("User signup success!");
             		User user = new User(username, password);
+            		if(this.filepath == null || this.filepath.isEmpty()) {
+            			//empty bc users are created w/ default pfp
+            		} else {
+            			try {
+							FileOutputStream out = new FileOutputStream("profilePictures/" + username + ".png");
+							FileInputStream in = new FileInputStream(this.filepath);
+							byte[] buff = new byte[4096];
+							int bytesRead;
+							while((bytesRead = in.read(buff)) != -1) {
+								out.write(buff,0,bytesRead);
+							}
+							user.setImageFile("profilePictures/" + username + ".png");
+							in.close();
+							out.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+            		}
             		UserData.getInstance().getUserMap().put(username, user);
             		signupSuccess.show();
             		}
