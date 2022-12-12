@@ -3,6 +3,7 @@ package controllers;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -21,6 +22,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.Post;
 import model.User;
@@ -40,10 +43,11 @@ public class SearchPageController {
 	@FXML
 	private ListView<HBox> accountPaneView;
 	@FXML
-	private ListView<Post> postListView;
+	private ListView<HBox> postListView;
 
 
 	public void homeScene(ActionEvent event) {
+		
 		try {
 	    	Stage stage = (Stage)homeSceneBtn.getScene().getWindow();
 			stage.close();
@@ -61,6 +65,7 @@ public class SearchPageController {
 	}
 
 	public void searchScene(ActionEvent event) {
+		
 		try {
 	    	Stage stage = (Stage)searchSceneBtn.getScene().getWindow();
 			stage.close();
@@ -78,9 +83,10 @@ public class SearchPageController {
 	}
 
 	public void search(ActionEvent event) {
-		accountPaneView.getItems().clear();
-		String checkSearch = searchTF.getText();
 		
+		accountPaneView.getItems().clear();
+		postListView.getItems().clear();
+		String checkSearch = searchTF.getText();
 		HBox accountTemplate = new HBox();
 		accountTemplate.setAlignment(Pos.CENTER);
 		
@@ -94,8 +100,10 @@ public class SearchPageController {
 				profilePicFile = new File("profilePictures/defaultUser.png");
 			}
 			Hyperlink usernameLink = new Hyperlink(userMapClone.get(checkSearch).getUsername());
+			usernameLink.setStyle("-fx-text-fill: white;");
 			String emptyString = "";
 			Label usernameLabel = new Label(emptyString, usernameLink);
+			usernameLabel.setStyle("-fx-text-fill: white;");
 			Image profilePicImage = new Image(profilePicFile.toURI().toString());
 			ImageView profilePicView = new ImageView(profilePicImage);
 			profilePicView.setFitWidth(75);
@@ -117,15 +125,16 @@ public class SearchPageController {
 					profilePicFile = new File("profilePictures/defaultUser.png");
 				}
     			Hyperlink usernameLink = new Hyperlink(userWithKey.getUsername());
+    			usernameLink.setStyle("-fx-text-fill: white;");
     			String emptyString = "";
 				Label usernameLabel = new Label(emptyString, usernameLink);
+				usernameLabel.setStyle("-fx-text-fill: white;");
 				Image profilePicImage = new Image(profilePicFile.toURI().toString());
 				ImageView profilePicView = new ImageView(profilePicImage);
 				profilePicView.setFitWidth(75);
 				profilePicView.setFitHeight(75);
 				profilePicView.setPreserveRatio(true);
 				profilePicView.setSmooth(true);
-				
 				accountTemplate.getChildren().addAll(
 						profilePicView,
 						usernameLabel
@@ -133,5 +142,50 @@ public class SearchPageController {
 			}
 		}
 			accountPaneView.getItems().addAll(accountTemplate);
+
+		LinkedList<Post> postsList = UserData.getInstance().getAllPosts();
+		for(Post post: postsList) {
+			if(post.getContent().contains(checkSearch)) {
+				Hyperlink usernameLink = new Hyperlink(post.getUsername());
+				usernameLink.setStyle("-fx-text-fill: white;");
+    			String emptyString = "";
+    			Label usernameLabel = new Label(emptyString, usernameLink);
+    			usernameLabel.setStyle("-fx-text-fill: white;");
+				Label contentLabel = new Label(post.getContent());
+				contentLabel.setStyle("-fx-text-fill: white;");
+				File profilePicFile = new File("profilePictures/" + post.getUsername() + ".png");
+				if(profilePicFile.exists() == false) {
+					profilePicFile = new File("profilePictures/defaultUser.png");
+				}
+				Image profilePicImage = new Image(profilePicFile.toURI().toString());
+				ImageView profilePicView = new ImageView(profilePicImage);
+				profilePicView.setFitWidth(40);
+				profilePicView.setFitHeight(40);
+				profilePicView.setPreserveRatio(true);
+				profilePicView.setSmooth(true);
+    			contentLabel.setPrefWidth(postListView.getPrefWidth());
+    			contentLabel.setWrapText(true);
+    			
+    			HBox userHBox = new HBox();
+    			userHBox.getChildren().addAll(
+    					profilePicView,
+    					usernameLabel
+    			);
+    			
+    			Label postTime = new Label(post.getTime());
+    			postTime.setStyle("-fx-text-fill:white;");
+    			VBox postVBox = new VBox();
+    			postVBox.setAlignment(Pos.TOP_LEFT);
+    			postVBox.getChildren().addAll(
+    					userHBox,
+    					contentLabel,
+    					postTime
+    			);
+    			HBox postHBox = new HBox();
+    			postHBox.setAlignment(Pos.TOP_LEFT);
+    			postHBox.getChildren().addAll(postVBox);
+    			postListView.getItems().add(postHBox);
+			}
+		}
 	}
 }

@@ -1,9 +1,9 @@
 #scenePageBackground, #postListView, #searchTF, #accountPaneView{
 	-fx-text-fill: white;
 	-fx-font-family: sans-serif;
-	-fx-background-color: linear-gradient(to bottom, #2b3259, #222745);
-	
+	-fx-background-color: linear-gradient(to bottom, #2b3259, #222745);	
 }
+
 .button{
 	-fx-border-radius: 10 10 10 10;
 	-fx-background-radius: 10 10 10 10;
