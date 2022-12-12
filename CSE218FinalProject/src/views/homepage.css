@@ -37,7 +37,7 @@
 .list-view .list-cell:even{
 	-fx-background-color: linear-gradient(to bottom, #2b3259, #222745);
 	-fx-border-color: white;
-	-fx-background-insets: 5,5;
+	-fx-border-radius: 10 10 10 10;
 	-fx-padding: 10;
 	-fx-font-size: 18;
 }
@@ -45,6 +45,7 @@
 .list-view .list-cell:odd{
 	-fx-background-color: linear-gradient(to bottom, #2b3259, #222745);
 	-fx-border-color: white;
+	-fx-border-radius: 10 10 10 10;
 	-fx-background-insets: 5,5;
 	-fx-padding: 10;
 	-fx-font-size: 18;

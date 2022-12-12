@@ -124,6 +124,7 @@ public class SignupPageController {
 						}
             		}
             		UserData.getInstance().getUserMap().put(username, user);
+            		UserData.getInstance().saveUserData();
             		signupSuccess.show();
             		}
         		}

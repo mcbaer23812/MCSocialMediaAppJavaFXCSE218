@@ -109,7 +109,7 @@ public class HomePageController implements Initializable{
     		protected void updateItem(Post post, boolean empty) {
     			super.updateItem(post, empty);
     			
-    			if(empty) {
+    			if(empty || post == null) {
     				setGraphic(null);
     			} else {
     			Hyperlink usernameLink = new Hyperlink(post.getUsername());

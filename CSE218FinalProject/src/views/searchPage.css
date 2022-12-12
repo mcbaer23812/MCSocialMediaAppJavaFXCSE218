@@ -1,22 +1,9 @@
-#scenePageBackground, #postListView, #searchTF{
+#scenePageBackground, #postListView, #searchTF, #accountPaneView{
 	-fx-text-fill: white;
 	-fx-font-family: sans-serif;
 	-fx-background-color: linear-gradient(to bottom, #2b3259, #222745);
 	
 }
-
-.scroll-pane > .viewport{
-	-fx-background-color: transparent;
-}
-
-.scroll-pane{
-	-fx-background-color: linear-gradient(to bottom, #2b3259, #222745);
-	-fx-border-color: white;
-	-fx-background-insets: 5,5;
-	-fx-padding: 10;
-	-fx-font-size: 18;
-}
-
 .button{
 	-fx-border-radius: 10 10 10 10;
 	-fx-background-radius: 10 10 10 10;
@@ -38,18 +25,27 @@
 	-fx-padding: 10;
 }
 
-.list-view .list-cell:even{
+#postListView .list-cell:even{
 	-fx-background-color: linear-gradient(to bottom, #2b3259, #222745);
 	-fx-border-color: white;
+	-fx-border-radius: 10 10 10 10;
+	-fx-padding: 10;
+	-fx-font-size: 18;
+}
+
+#postListView .list-cell:odd{
+	-fx-background-color: linear-gradient(to bottom, #2b3259, #222745);
+	-fx-border-color: white;
+	-fx-border-radius: 10 10 10 10;
 	-fx-background-insets: 5,5;
 	-fx-padding: 10;
 	-fx-font-size: 18;
 }
 
-.list-view .list-cell:odd{
+#accountPaneView .list-cell:even {
 	-fx-background-color: linear-gradient(to bottom, #2b3259, #222745);
-	-fx-border-color: white;
-	-fx-background-insets: 5,5;
-	-fx-padding: 10;
-	-fx-font-size: 18;
+}
+
+#accountPaneView .list-cell:odd{
+	-fx-background-color: linear-gradient(to bottom, #2b3259, #222745);
 }
