@@ -42,15 +42,15 @@ public class HomePageController implements Initializable{
     private ListView<Post> postListView;
 
     @FXML
-    private Button searchBtn;
+    private Button searchSceneBtn;
     
     @FXML
-    private Button homeBtn;
+    private Button homeSceneBtn;
     
     @FXML
     public void homeScene(ActionEvent event) {
 		try {
-	    	Stage stage = (Stage)homeBtn.getScene().getWindow();
+	    	Stage stage = (Stage)homeSceneBtn.getScene().getWindow();
 			stage.close();
 			Parent root = FXMLLoader.load(getClass().getResource("/views/HomePage.fxml"));
 			Scene scene = new Scene(root,1200,800);
@@ -67,7 +67,21 @@ public class HomePageController implements Initializable{
     
     @FXML
     public void searchScene(ActionEvent event) {
-    	
+    try {
+    	Stage stage = (Stage)searchSceneBtn.getScene().getWindow();
+		stage.close();
+		Parent root = FXMLLoader.load(getClass().getResource("/views/SearchPage.fxml"));
+		Scene scene = new Scene(root,1200,800);
+		String mainSceneCSS = getClass().getResource("/views/searchPage.css").toExternalForm();
+		scene.getStylesheets().add(mainSceneCSS);
+		stage = new Stage();
+		stage.setResizable(true);
+		stage.setScene(scene);
+		stage.show();
+	} catch(IOException e) {
+		e.printStackTrace();
+	}
+    
     }
     
     @FXML

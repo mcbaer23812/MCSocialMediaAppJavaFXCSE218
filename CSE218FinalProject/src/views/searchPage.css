@@ -1,0 +1,55 @@
+#scenePageBackground, #postListView, #searchTF{
+	-fx-text-fill: white;
+	-fx-font-family: sans-serif;
+	-fx-background-color: linear-gradient(to bottom, #2b3259, #222745);
+	
+}
+
+.scroll-pane > .viewport{
+	-fx-background-color: transparent;
+}
+
+.scroll-pane{
+	-fx-background-color: linear-gradient(to bottom, #2b3259, #222745);
+	-fx-border-color: white;
+	-fx-background-insets: 5,5;
+	-fx-padding: 10;
+	-fx-font-size: 18;
+}
+
+.button{
+	-fx-border-radius: 10 10 10 10;
+	-fx-background-radius: 10 10 10 10;
+	-fx-background-color: white;
+	-fx-border-width: 3;
+	-fx-border-color: white;
+	-fx-background-insets: 1;
+}
+
+.button:hover{
+	-fx-font-weight: bold;
+	-fx-background-radius: 20;
+	-fx-font-size: 13;
+}
+
+.list-view{
+	-fx-border-color: white;
+	-fx-background-insets: 5,5;
+	-fx-padding: 10;
+}
+
+.list-view .list-cell:even{
+	-fx-background-color: linear-gradient(to bottom, #2b3259, #222745);
+	-fx-border-color: white;
+	-fx-background-insets: 5,5;
+	-fx-padding: 10;
+	-fx-font-size: 18;
+}
+
+.list-view .list-cell:odd{
+	-fx-background-color: linear-gradient(to bottom, #2b3259, #222745);
+	-fx-border-color: white;
+	-fx-background-insets: 5,5;
+	-fx-padding: 10;
+	-fx-font-size: 18;
+}
