@@ -75,7 +75,7 @@ public class MainSceneController {
    			Stage stage = (Stage)signupBtn.getScene().getWindow();
    			stage.close();
 			Parent root = FXMLLoader.load(getClass().getResource("/views/SignupPage.fxml"));
-			Scene scene = new Scene(root,425,400);
+			Scene scene = new Scene(root,500,450);
 			String mainSceneCSS = getClass().getResource("/views/signupPage.css").toExternalForm();
 			scene.getStylesheets().add(mainSceneCSS);
 			stage = new Stage();

@@ -2,10 +2,8 @@ package controllers;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -98,6 +96,11 @@ public class SignupPageController {
             		signupFailed.setContentText("Passwords do not match");
             		signupFailed.setHeaderText("User signup failed!");
             		signupFailed.show();
+        		} else if(password.equals(username)){
+        			Alert signupFailed = new Alert(AlertType.ERROR);
+            		signupFailed.setContentText("Cannot set password as your username");
+            		signupFailed.setHeaderText("User signup failed!");
+            		signupFailed.show();
         		} else {
             		Alert signupSuccess = new Alert(AlertType.INFORMATION);
             		signupSuccess.setContentText("User signup success");
@@ -133,7 +136,7 @@ public class SignupPageController {
        			Stage stage = (Stage)closeBtn.getScene().getWindow();
        			stage.close();
     			Parent root = FXMLLoader.load(getClass().getResource("/views/MainScene.fxml"));
-    			Scene scene = new Scene(root,425,400);
+    			Scene scene = new Scene(root,425,350);
     			String mainSceneCSS = getClass().getResource("/views/mainScene.css").toExternalForm();
     			scene.getStylesheets().add(mainSceneCSS);
     			stage = new Stage();

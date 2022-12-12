@@ -74,15 +74,17 @@ public class HomePageController implements Initializable{
 					profilePicFile = new File("profilePictures/defaultUser.png");
 				}
 				Image profilePicImage = new Image(profilePicFile.toURI().toString());
-				ImageView profilePic = new ImageView(profilePicImage);
-				
-				profilePic.setFitWidth(75);
-				profilePic.setFitHeight(75);
+				ImageView profilePicView = new ImageView(profilePicImage);
+				profilePicView.setFitWidth(40);
+				profilePicView.setFitHeight(40);
+				profilePicView.setPreserveRatio(true);
+				profilePicView.setSmooth(true);
     			contentLabel.setPrefWidth(postListView.getPrefWidth());
     			contentLabel.setWrapText(true);
+    			
     			HBox userHBox = new HBox();
     			userHBox.getChildren().addAll(
-    					profilePic,
+    					profilePicView,
     					usernameLabel
     			);
     			VBox postVBox = new VBox();

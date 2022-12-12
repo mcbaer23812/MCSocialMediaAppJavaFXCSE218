@@ -6,6 +6,11 @@
 	-fx-font-size: 13;
 }
 
+.label{
+	-fx-text-fill: white;
+	-fx-font-family: sans-serif;
+	-fx-font-size: 16;
+}
 #signupSceneBackground{
 	-fx-background-color: linear-gradient(to bottom, #2b3259, #222745);
 }
