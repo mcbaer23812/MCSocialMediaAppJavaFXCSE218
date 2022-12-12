@@ -1,32 +1,40 @@
 package controllers;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import model.Post;
 import model.UserData;
 
 public class HomePageController implements Initializable{
-
+	
+    @FXML
+    private GridPane homePageBackground;
+    
     @FXML
     private TextArea contentTA;
-
+    
     @FXML
     private Button postBtn;
 
@@ -34,7 +42,33 @@ public class HomePageController implements Initializable{
     private ListView<Post> postListView;
 
     @FXML
-    private TextField searchTF;
+    private Button searchBtn;
+    
+    @FXML
+    private Button homeBtn;
+    
+    @FXML
+    public void homeScene(ActionEvent event) {
+		try {
+	    	Stage stage = (Stage)homeBtn.getScene().getWindow();
+			stage.close();
+			Parent root = FXMLLoader.load(getClass().getResource("/views/HomePage.fxml"));
+			Scene scene = new Scene(root,1200,800);
+			String mainSceneCSS = getClass().getResource("/views/homepage.css").toExternalForm();
+			scene.getStylesheets().add(mainSceneCSS);
+			stage = new Stage();
+			stage.setResizable(true);
+			stage.setScene(scene);
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    
+    @FXML
+    public void searchScene(ActionEvent event) {
+    	
+    }
     
     @FXML
     public void addPost(ActionEvent event) {

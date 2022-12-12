@@ -107,7 +107,6 @@ public class SignupPageController {
             		signupSuccess.setHeaderText("User signup success!");
             		User user = new User(username, password);
             		if(this.filepath == null || this.filepath.isEmpty()) {
-            			//empty bc users are created w/ default pfp
             		} else {
             			try {
 							FileOutputStream out = new FileOutputStream("profilePictures/" + username + ".png");

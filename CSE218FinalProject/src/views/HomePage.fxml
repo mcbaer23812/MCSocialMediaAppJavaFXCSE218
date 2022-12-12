@@ -3,10 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -27,24 +25,10 @@
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2">
          <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="25.0">
                <children>
-                  <ButtonBar buttonOrder="\%key.unspecified" nodeOrientation="LEFT_TO_RIGHT" prefHeight="61.0" prefWidth="1171.0">
-                    <buttons>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Button">
-                           <cursor>
-                              <Cursor fx:constant="OPEN_HAND" />
-                           </cursor></Button>
-                      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Button">
-                           <cursor>
-                              <Cursor fx:constant="OPEN_HAND" />
-                           </cursor></Button>
-                        <TextField fx:id="searchTF" promptText="Search">
-                           <cursor>
-                              <Cursor fx:constant="DEFAULT" />
-                           </cursor></TextField>
-                    </buttons>
-                  </ButtonBar>
+                  <Button fx:id="homeBtn" mnemonicParsing="false" onAction="#homeScene" text="Home" />
+                  <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#searchScene" text="Search" />
                </children>
             </HBox>
          </children>
@@ -54,7 +38,7 @@
             <ListView fx:id="postListView" prefHeight="550.0" prefWidth="625.0" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="35.0">
                <children>
-                  <TextArea fx:id="contentTA" prefHeight="100.0" prefWidth="500.0" wrapText="true" />
+                  <TextArea fx:id="contentTA" prefHeight="100.0" prefWidth="500.0" promptText="Create a post" wrapText="true" />
                   <Button fx:id="postBtn" mnemonicParsing="false" onAction="#addPost" text="Post">
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />
