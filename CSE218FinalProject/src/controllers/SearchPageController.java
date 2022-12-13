@@ -179,6 +179,7 @@ public class SearchPageController {
 							Parent root = loader.load();
 							AccountPageController controller = loader.getController();
 							controller.setUser(UserData.getInstance().getUserMap().get(post.getUsername()));
+							controller.initialize(null, null);
 							Scene scene = new Scene(root,1000,800);
 							String mainSceneCSS = getClass().getResource("/views/accountPage.css").toExternalForm();
 							scene.getStylesheets().add(mainSceneCSS);
