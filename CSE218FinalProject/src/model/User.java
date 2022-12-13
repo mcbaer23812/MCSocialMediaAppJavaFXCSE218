@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.TreeSet;
 
 @SuppressWarnings("serial")
 public class User implements Comparator<User>, Serializable{
@@ -10,12 +11,14 @@ public class User implements Comparator<User>, Serializable{
 	private String password;
 	private String imageFile;
 	private LinkedList<Post> userPosts;
+	private TreeSet<String> following;
 	
 	public User(String username, String password) {
 		this.username = username;
 		this.password = password;
 		this.imageFile = "profilePictures/defaultUser.png";
 		this.userPosts = null;
+		this.following = new TreeSet<>();
 	}
 	
 	public void addUserPost(Post p){
@@ -23,6 +26,10 @@ public class User implements Comparator<User>, Serializable{
 			userPosts = new LinkedList<Post>();
 		}
 		userPosts.add(p);
+	}
+	
+	public TreeSet<String> getFollowing(){
+		return following;
 	}
 
 	public LinkedList<Post> getUserPosts() {

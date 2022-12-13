@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -102,9 +103,9 @@ public class HomePageController implements Initializable{
 		if(UserData.getInstance().getAllPosts() != null) {
 			postListView.getItems().addAll(UserData.getInstance().getAllPosts());
 		}
+
 		
     	postListView.setCellFactory(param -> new ListCell<Post>() {
-    		
     		@Override
     		protected void updateItem(Post post, boolean empty) {
     			super.updateItem(post, empty);
@@ -112,7 +113,30 @@ public class HomePageController implements Initializable{
     			if(empty || post == null) {
     				setGraphic(null);
     			} else {
+
     			Hyperlink usernameLink = new Hyperlink(post.getUsername());
+    			usernameLink.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent arg0) {
+						try {
+							FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/accountPage.fxml"));
+							Parent root = loader.load();
+							AccountPageController controller = loader.getController();
+							controller.setUser(UserData.getInstance().getUserMap().get(post.getUsername()));
+							controller.initialize(null, arg1);
+							Scene scene = new Scene(root,1000,800);
+							String mainSceneCSS = getClass().getResource("/views/accountPage.css").toExternalForm();
+							scene.getStylesheets().add(mainSceneCSS);
+							Stage stage = new Stage();
+							stage.setResizable(true);
+							stage.setScene(scene);
+							stage.show();
+						} catch(IOException e) {
+							
+						}
+						
+					}
+        		});
     			String emptyString = "";
     			Label usernameLabel = new Label(emptyString, usernameLink);
 				Label contentLabel = new Label(post.getContent());

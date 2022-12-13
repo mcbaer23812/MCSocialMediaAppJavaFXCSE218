@@ -5,9 +5,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.TreeMap;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -125,6 +127,28 @@ public class SearchPageController {
 					profilePicFile = new File("profilePictures/defaultUser.png");
 				}
     			Hyperlink usernameLink = new Hyperlink(userWithKey.getUsername());
+    			usernameLink.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent arg0) {
+						try {
+							FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/accountPage.fxml"));
+							Parent root = (Parent)loader.load();
+							AccountPageController controller = loader.getController();
+							controller.setUser(UserData.getInstance().getUserMap().get(userWithKey.getUsername()));
+							controller.initialize(null, null);
+							Scene scene = new Scene(root,1000,800);
+							String mainSceneCSS = getClass().getResource("/views/accountPage.css").toExternalForm();
+							scene.getStylesheets().add(mainSceneCSS);
+							Stage stage = new Stage();
+							stage.setResizable(true);
+							stage.setScene(scene);
+							stage.show();
+						} catch(IOException e) {
+							
+						}
+						
+					}
+        		});
     			usernameLink.setStyle("-fx-text-fill: white;");
     			String emptyString = "";
 				Label usernameLabel = new Label(emptyString, usernameLink);
@@ -147,6 +171,27 @@ public class SearchPageController {
 		for(Post post: postsList) {
 			if(post.getContent().contains(checkSearch)) {
 				Hyperlink usernameLink = new Hyperlink(post.getUsername());
+				usernameLink.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent arg0) {
+						try {
+							FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/accountPage.fxml"));
+							Parent root = loader.load();
+							AccountPageController controller = loader.getController();
+							controller.setUser(UserData.getInstance().getUserMap().get(post.getUsername()));
+							Scene scene = new Scene(root,1000,800);
+							String mainSceneCSS = getClass().getResource("/views/accountPage.css").toExternalForm();
+							scene.getStylesheets().add(mainSceneCSS);
+							Stage stage = new Stage();
+							stage.setResizable(true);
+							stage.setScene(scene);
+							stage.show();
+						} catch(IOException e) {
+							
+						}
+						
+					}
+        		});
 				usernameLink.setStyle("-fx-text-fill: white;");
     			String emptyString = "";
     			Label usernameLabel = new Label(emptyString, usernameLink);
