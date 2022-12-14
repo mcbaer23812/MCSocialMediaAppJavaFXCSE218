@@ -14,7 +14,6 @@ public class Main extends Application {
 			primaryStage.setResizable(true);
 			Parent root = FXMLLoader.load(getClass().getResource("/views/MainScene.fxml"));
 			Scene scene = new Scene(root,425,350);
-			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			String mainSceneCSS = getClass().getResource("/views/mainScene.css").toExternalForm();
 			scene.getStylesheets().add(mainSceneCSS);
 			primaryStage.setScene(scene);

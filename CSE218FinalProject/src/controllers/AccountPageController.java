@@ -3,7 +3,6 @@ package controllers;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Collections;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -65,12 +64,10 @@ public class AccountPageController implements Initializable{
     }
     
 	public void setUser(User user) {
-		
 		this.user = user;
 	}
 	
 	public void homeScene(ActionEvent event) {
-		
 		try {
 	    	Stage stage = (Stage)homeSceneBtn.getScene().getWindow();
 			stage.close();
@@ -88,7 +85,6 @@ public class AccountPageController implements Initializable{
 	}
 	
 	public void searchScene(ActionEvent event) {
-
 		try {
 	    	Stage stage = (Stage)searchSceneBtn.getScene().getWindow();
 			stage.close();

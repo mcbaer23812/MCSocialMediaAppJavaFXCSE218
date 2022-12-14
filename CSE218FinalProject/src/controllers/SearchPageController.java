@@ -49,7 +49,6 @@ public class SearchPageController {
 
 
 	public void homeScene(ActionEvent event) {
-		
 		try {
 	    	Stage stage = (Stage)homeSceneBtn.getScene().getWindow();
 			stage.close();
@@ -67,7 +66,6 @@ public class SearchPageController {
 	}
 
 	public void searchScene(ActionEvent event) {
-		
 		try {
 	    	Stage stage = (Stage)searchSceneBtn.getScene().getWindow();
 			stage.close();
@@ -85,7 +83,6 @@ public class SearchPageController {
 	}
 
 	public void search(ActionEvent event) {
-		
 		accountPaneView.getItems().clear();
 		postListView.getItems().clear();
 		String checkSearch = searchTF.getText();

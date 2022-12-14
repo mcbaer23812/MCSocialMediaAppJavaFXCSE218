@@ -33,7 +33,6 @@ public class MainSceneController {
     private TextField usernameTF;
     
     public void logIn(ActionEvent event) {
-    	
     	String username = usernameTF.getText();
     	String password = passwordTF.getText();
     	TreeMap<String, User> userMap = UserData.getInstance().getUserMap();
