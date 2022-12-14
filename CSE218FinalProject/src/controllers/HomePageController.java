@@ -3,7 +3,9 @@ package controllers;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -102,7 +104,10 @@ public class HomePageController implements Initializable{
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
 		if(UserData.getInstance().getAllPosts() != null) {
-			postListView.getItems().addAll(UserData.getInstance().getAllPosts());
+			List<Post> filteredPosts = UserData.getInstance().getAllPosts().stream()
+					.filter(post -> UserData.getInstance().getLoggedIn().getFollowing().contains(post.getUsername()))
+					.collect(Collectors.toList());
+		postListView.getItems().addAll(filteredPosts);
 		}
     	postListView.setCellFactory(param -> new ListCell<Post>() {
     		@Override

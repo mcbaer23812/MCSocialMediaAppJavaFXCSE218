@@ -98,8 +98,8 @@ public class PostPageController implements Initializable{
 			Post replyPost = new Post(loggedIn.getUsername(), content);
 			UserData.getInstance().getLoggedIn().addUserPost(replyPost);
 			UserData.getInstance().addPost(replyPost);
-			userPost.getReplies().addFirst(replyPost);
-			postListView.getItems().add(0, replyPost);
+			userPost.getReplies().add(replyPost);
+			postListView.getItems().add(replyPost);
 		}
 		
 	}

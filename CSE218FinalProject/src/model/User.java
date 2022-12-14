@@ -19,6 +19,7 @@ public class User implements Comparator<User>, Serializable{
 		this.imageFile = "profilePictures/defaultUser.png";
 		this.userPosts = null;
 		this.following = new TreeSet<>();
+		this.following.add(username);
 	}
 	
 	public void addUserPost(Post p){
