@@ -1,7 +1,12 @@
-#accountPageBackground, #postListView{
+#postPageBackground, #postListView, #replyTA .content{
 	-fx-text-fill: white;
 	-fx-font-family: sans-serif;
 	-fx-background-color: linear-gradient(to bottom, #2b3259, #222745);
+}
+
+.text-area {
+	-fx-font-family: sans-serif;
+	-fx-text-fill: white;
 }
 
 .button{

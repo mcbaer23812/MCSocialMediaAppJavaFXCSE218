@@ -15,7 +15,7 @@ public class Post implements Serializable{
 		super();
 		this.username = username;
 		this.content = content;
-		this.replies = null;
+		this.replies = new LinkedList<Post>();
 		Date currentTime = new Date();
 		this.time = currentTime.toString();
 	}

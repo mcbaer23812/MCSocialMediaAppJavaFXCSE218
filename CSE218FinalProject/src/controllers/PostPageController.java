@@ -3,7 +3,6 @@ package controllers;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Collections;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -14,12 +13,11 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -31,46 +29,35 @@ import model.Post;
 import model.User;
 import model.UserData;
 
-public class AccountPageController implements Initializable{
+public class PostPageController implements Initializable{
 	@FXML
-	private GridPane accountPageBackground;
+	private GridPane postPageBackground;
 	@FXML
 	private Button homeSceneBtn;
 	@FXML
 	private Button searchSceneBtn;
 	@FXML
-	private ImageView userProfilePicture;
+	private ImageView mainUserImage;
 	@FXML
-	private Label userBoxLabel;
+	private Label mainPostUsernameLabel;
 	@FXML
-	private Button followButton;
+	private Label mainPostTimeLabel;
+	@FXML
+	private Label mainPostContentLabel;
 	@FXML
 	private ListView<Post> postListView;
+	@FXML
+	private TextArea replyTA;
+	@FXML
+	private Button replyBtn;
 	
-	private User user;
+	private Post userPost;
 	
-    public void followAccount(ActionEvent event) {
-    	if(UserData.getInstance().getLoggedIn().getFollowing().contains(userBoxLabel.getText())) {
-    		Alert signupFailed = new Alert(AlertType.ERROR);
-    		signupFailed.setContentText("You are already following " + userBoxLabel.getText());
-    		signupFailed.setHeaderText("User follow failed!");
-    		signupFailed.show();
-    	} else {
-        	UserData.getInstance().getLoggedIn().getFollowing().add(userBoxLabel.getText());
-        	Alert followSuccess = new Alert(AlertType.INFORMATION);
-    		followSuccess.setContentText("You are now following " + userBoxLabel.getText());
-    		followSuccess.setHeaderText("User follow success!");
-    		followSuccess.show();
-    	}
-    }
-    
-	public void setUser(User user) {
-		
-		this.user = user;
+	public void setPost(Post post) {
+		this.userPost = post;
 	}
 	
 	public void homeScene(ActionEvent event) {
-		
 		try {
 	    	Stage stage = (Stage)homeSceneBtn.getScene().getWindow();
 			stage.close();
@@ -88,59 +75,76 @@ public class AccountPageController implements Initializable{
 	}
 	
 	public void searchScene(ActionEvent event) {
-
-		try {
-	    	Stage stage = (Stage)searchSceneBtn.getScene().getWindow();
-			stage.close();
-			Parent root = FXMLLoader.load(getClass().getResource("/views/SearchPage.fxml"));
-			Scene scene = new Scene(root,1200,800);
+    	try {
+    		Stage stage = (Stage)searchSceneBtn.getScene().getWindow();
+    		stage.close();
+    		Parent root = FXMLLoader.load(getClass().getResource("/views/SearchPage.fxml"));
+    		Scene scene = new Scene(root,1200,800);
 			String mainSceneCSS = getClass().getResource("/views/searchPage.css").toExternalForm();
 			scene.getStylesheets().add(mainSceneCSS);
 			stage = new Stage();
 			stage.setResizable(true);
 			stage.setScene(scene);
 			stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+    	} catch(IOException e) {
+		e.printStackTrace();
+    	}
 	}
 	
-    @Override
+	public void addReply(ActionEvent event) {
+		User loggedIn = UserData.getInstance().getLoggedIn();
+		String content = replyTA.getText();
+		if(!content.equals("")) {
+			Post replyPost = new Post(loggedIn.getUsername(), content);
+			UserData.getInstance().getLoggedIn().addUserPost(replyPost);
+			UserData.getInstance().addPost(replyPost);
+			userPost.getReplies().addFirst(replyPost);
+			postListView.getItems().add(0, replyPost);
+		}
+		
+	}
+
+	@Override
     public void initialize(URL arg0, ResourceBundle arg1) {
     	start();
     }
-    
-    public void start() {
-    		if(user != null && user.getUserPosts() != null) {
-    			postListView.getItems().addAll(user.getUserPosts());
-    			File profilePicFile = new File("profilePictures/" + user.getUsername() + ".png");
-				if(profilePicFile.exists() == false) {
-					profilePicFile = new File("profilePictures/defaultUser.png");
-				}
-				Image profilePicImage = new Image(profilePicFile.toURI().toString());
-    			userProfilePicture.setImage(profilePicImage);
-    			userBoxLabel.setText(user.getUsername());
-    		} else if (user != null && user.getUserPosts() == null) {
-    			postListView.getItems().add(null);
-    			File profilePicFile = new File("profilePictures/" + user.getUsername() + ".png");
-				if(profilePicFile.exists() == false) {
-					profilePicFile = new File("profilePictures/defaultUser.png");
-				}
-				Image profilePicImage = new Image(profilePicFile.toURI().toString());
-    			userProfilePicture.setImage(profilePicImage);
-    			userBoxLabel.setText(user.getUsername());
-    		} else {
-    			
-    		}
-    		
-        	postListView.setCellFactory(param -> new ListCell<Post>() {
-        		@Override
-        		protected void updateItem(Post post, boolean empty) {
-        			super.updateItem(post, empty);
-        			if(empty || post == null) {
-        			} else {
-        				
-        			Label usernameLabel = new Label(user.getUsername());
+	
+	public void start() {
+		if(userPost != null && userPost.getReplies() != null){
+			postListView.getItems().addAll(userPost.getReplies());
+			File profilePicFile = new File("profilePictures/" + userPost.getUsername() + ".png");
+			if(profilePicFile.exists() == false) {
+				profilePicFile = new File("profilePictures/defaultUser.png");
+			}
+			Image profilePicImage = new Image(profilePicFile.toURI().toString());
+			mainUserImage.setImage(profilePicImage);
+			mainPostUsernameLabel.setText(userPost.getUsername());
+			mainPostContentLabel.setText(userPost.getContent());
+			mainPostTimeLabel.setText(userPost.getTime());
+		} else if(userPost != null && userPost.getReplies() == null) {
+			postListView.getItems().add(null);
+			File profilePicFile = new File("profilePictures/" + userPost.getUsername() + ".png");
+			if(profilePicFile.exists() == false) {
+				profilePicFile = new File("profilePictures/defaultUser.png");
+			}
+			Image profilePicImage = new Image(profilePicFile.toURI().toString());
+			mainUserImage.setImage(profilePicImage);
+			mainPostUsernameLabel.setText(userPost.getUsername());
+			mainPostContentLabel.setText(userPost.getContent());
+			mainPostTimeLabel.setText(userPost.getTime());
+		} else {
+			
+		}
+		
+		postListView.setCellFactory(param -> new ListCell<Post>() {
+    		@Override
+    		protected void updateItem(Post post, boolean empty) {
+    			super.updateItem(post, empty);
+    			if(empty || post == null) {
+    				setGraphic(null);
+    			}
+    			else {
+    				Label usernameLabel = new Label(post.getUsername());
         			Label contentLabel = new Label();
         			if(post.getContent() != null) {
         				contentLabel = new Label(post.getContent());
@@ -182,7 +186,7 @@ public class AccountPageController implements Initializable{
     							PostPageController controller = loader.getController();
     							controller.setPost(post);
     							controller.initialize(null, null);
-    							Scene scene = new Scene(root,1000,800);
+    							Scene scene = new Scene(root,1200,800);
     							String mainSceneCSS = getClass().getResource("/views/postPage.css").toExternalForm();
     							scene.getStylesheets().add(mainSceneCSS);
     							Stage stage = new Stage();
@@ -198,8 +202,8 @@ public class AccountPageController implements Initializable{
         			postHBox.setAlignment(Pos.TOP_LEFT);
         			postHBox.getChildren().addAll(postVBox);
         			setGraphic(postHBox);
-        			}
-        		}
-        	});
-    }
+    			}
+    		}
+    	});
+	}
 }

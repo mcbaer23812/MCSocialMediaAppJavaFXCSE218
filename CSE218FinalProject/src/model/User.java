@@ -25,7 +25,7 @@ public class User implements Comparator<User>, Serializable{
 		if(userPosts == null) {
 			userPosts = new LinkedList<Post>();
 		}
-		userPosts.add(p);
+		userPosts.addFirst(p);
 	}
 	
 	public TreeSet<String> getFollowing(){

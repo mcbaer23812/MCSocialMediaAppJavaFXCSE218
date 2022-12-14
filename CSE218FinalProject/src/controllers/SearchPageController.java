@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.TreeMap;
 
 import javafx.event.ActionEvent;
@@ -22,10 +21,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+
 import javafx.stage.Stage;
 import model.Post;
 import model.User;
@@ -211,13 +211,12 @@ public class SearchPageController {
 				profilePicView.setSmooth(true);
     			contentLabel.setPrefWidth(postListView.getPrefWidth());
     			contentLabel.setWrapText(true);
-    			
     			HBox userHBox = new HBox();
     			userHBox.getChildren().addAll(
     					profilePicView,
     					usernameLabel
     			);
-    			
+    			 
     			Label postTime = new Label(post.getTime());
     			postTime.setStyle("-fx-text-fill:white;");
     			VBox postVBox = new VBox();
@@ -228,6 +227,28 @@ public class SearchPageController {
     					postTime
     			);
     			HBox postHBox = new HBox();
+    			postHBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
+					@Override
+					public void handle(MouseEvent arg0) {
+						try {
+							FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/PostPage.fxml"));
+							Parent root = loader.load();
+							PostPageController controller = loader.getController();
+							controller.setPost(post);
+							controller.initialize(null, null);
+							Scene scene = new Scene(root,1200,800);
+							String mainSceneCSS = getClass().getResource("/views/postPage.css").toExternalForm();
+							scene.getStylesheets().add(mainSceneCSS);
+							Stage stage = new Stage();
+							stage.setResizable(true);
+							stage.setScene(scene);
+							stage.show();
+						} catch(IOException e) {
+							
+						}
+					}
+    				
+    			});
     			postHBox.setAlignment(Pos.TOP_LEFT);
     			postHBox.getChildren().addAll(postVBox);
     			postListView.getItems().add(postHBox);

@@ -21,6 +21,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -68,20 +69,20 @@ public class HomePageController implements Initializable{
     
     @FXML
     public void searchScene(ActionEvent event) {
-    try {
-    	Stage stage = (Stage)searchSceneBtn.getScene().getWindow();
-		stage.close();
-		Parent root = FXMLLoader.load(getClass().getResource("/views/SearchPage.fxml"));
-		Scene scene = new Scene(root,1200,800);
-		String mainSceneCSS = getClass().getResource("/views/searchPage.css").toExternalForm();
-		scene.getStylesheets().add(mainSceneCSS);
-		stage = new Stage();
-		stage.setResizable(true);
-		stage.setScene(scene);
-		stage.show();
-	} catch(IOException e) {
+    	try {
+    		Stage stage = (Stage)searchSceneBtn.getScene().getWindow();
+    		stage.close();
+    		Parent root = FXMLLoader.load(getClass().getResource("/views/SearchPage.fxml"));
+    		Scene scene = new Scene(root,1200,800);
+			String mainSceneCSS = getClass().getResource("/views/searchPage.css").toExternalForm();
+			scene.getStylesheets().add(mainSceneCSS);
+			stage = new Stage();
+			stage.setResizable(true);
+			stage.setScene(scene);
+			stage.show();
+    	} catch(IOException e) {
 		e.printStackTrace();
-	}
+    	}
     
     }
     
@@ -103,8 +104,6 @@ public class HomePageController implements Initializable{
 		if(UserData.getInstance().getAllPosts() != null) {
 			postListView.getItems().addAll(UserData.getInstance().getAllPosts());
 		}
-
-		
     	postListView.setCellFactory(param -> new ListCell<Post>() {
     		@Override
     		protected void updateItem(Post post, boolean empty) {
@@ -153,7 +152,6 @@ public class HomePageController implements Initializable{
 				profilePicView.setSmooth(true);
     			contentLabel.setPrefWidth(postListView.getPrefWidth());
     			contentLabel.setWrapText(true);
-    			
     			HBox userHBox = new HBox();
     			userHBox.getChildren().addAll(
     					profilePicView,
@@ -168,6 +166,28 @@ public class HomePageController implements Initializable{
     			);
     			
     			HBox postHBox = new HBox();
+    			postHBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
+					@Override
+					public void handle(MouseEvent arg0) {
+						try {
+							FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/PostPage.fxml"));
+							Parent root = loader.load();
+							PostPageController controller = loader.getController();
+							controller.setPost(post);
+							controller.initialize(null, arg1);
+							Scene scene = new Scene(root,1200,800);
+							String mainSceneCSS = getClass().getResource("/views/postPage.css").toExternalForm();
+							scene.getStylesheets().add(mainSceneCSS);
+							Stage stage = new Stage();
+							stage.setResizable(true);
+							stage.setScene(scene);
+							stage.show();
+						} catch(IOException e) {
+							
+						}
+					}
+    				
+    			});
     			postHBox.setAlignment(Pos.TOP_LEFT);
     			postHBox.getChildren().addAll(postVBox);
     			setGraphic(postHBox);
