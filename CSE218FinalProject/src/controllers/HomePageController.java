@@ -3,7 +3,9 @@ package controllers;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -15,12 +17,15 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -91,15 +96,53 @@ public class HomePageController implements Initializable{
     @FXML
     public void addPost(ActionEvent event) {
     	String content = contentTA.getText();
-    	if(content.equals("")) {
-    		
+    	if(!content.equals("")) {
+			LinkedList<String> mispelledWords = checkDictionary(content);
+			if(mispelledWords.isEmpty()) {
+				Post newPost = new Post(UserData.getInstance().getLoggedIn().getUsername(), content);
+				UserData.getInstance().getLoggedIn().addUserPost(newPost);
+				UserData.getInstance().addPost(newPost);
+				postListView.getItems().add(0, newPost);
+			} else {
+				Alert postConfirmation = new Alert(AlertType.CONFIRMATION);
+				postConfirmation.setTitle("Mispelled words");
+				postConfirmation.setContentText("You have mispelled words. Here is the list of words:\n" + mispelledWords.toString());
+				LinkedList<ButtonType> options = new LinkedList<>();
+				options.add(new ButtonType("Cancel"));
+				options.add(new ButtonType("Post"));
+				postConfirmation.getButtonTypes().setAll(options);
+				Optional<ButtonType> selected = postConfirmation.showAndWait();
+				if(selected.isPresent() && selected.get() == options.get(0)) {
+					postConfirmation.close();
+				} else if(selected.isPresent() && selected.get() == options.get(1)) {
+					Post newPost = new Post(UserData.getInstance().getLoggedIn().getUsername(), content);
+					UserData.getInstance().getLoggedIn().addUserPost(newPost);
+					UserData.getInstance().addPost(newPost);
+					postListView.getItems().add(0, newPost);
+				} else {
+					postConfirmation.close();
+				}
+			}
     	} else {
-    		Post newPost = new Post(UserData.getInstance().getLoggedIn().getUsername(), content);
-        	UserData.getInstance().getLoggedIn().addUserPost(newPost);
-        	UserData.getInstance().addPost(newPost);
-        	postListView.getItems().add(0, newPost);
+    		
     	}
     }
+    
+	public LinkedList<String> checkDictionary(String content) {
+		LinkedList<String> mispelledWords = new LinkedList<String>();
+		content = content.toLowerCase();
+		String[] words = content.split("\\W+");
+		for(String word: words) {
+			if(!UserData.getInstance().getDictionary().contains(word)) {
+				mispelledWords.add(word);
+				}
+			}
+		if(mispelledWords.equals(null)) {
+			return null;
+			} else {
+				return mispelledWords;
+			}
+	}
     
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
