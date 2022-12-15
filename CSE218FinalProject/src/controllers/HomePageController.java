@@ -66,6 +66,7 @@ public class HomePageController implements Initializable{
 			String mainSceneCSS = getClass().getResource("/views/homepage.css").toExternalForm();
 			scene.getStylesheets().add(mainSceneCSS);
 			stage = new Stage();
+			stage.setTitle("Home");
 			stage.setResizable(true);
 			stage.setScene(scene);
 			stage.show();
@@ -84,6 +85,7 @@ public class HomePageController implements Initializable{
 			String mainSceneCSS = getClass().getResource("/views/searchPage.css").toExternalForm();
 			scene.getStylesheets().add(mainSceneCSS);
 			stage = new Stage();
+			stage.setTitle("Search");
 			stage.setResizable(true);
 			stage.setScene(scene);
 			stage.show();
@@ -169,6 +171,8 @@ public class HomePageController implements Initializable{
 					@Override
 					public void handle(ActionEvent arg0) {
 						try {
+					    	Stage stage = (Stage)usernameLink.getScene().getWindow();
+					    	stage.close();
 							FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/accountPage.fxml"));
 							Parent root = loader.load();
 							AccountPageController controller = loader.getController();
@@ -177,7 +181,8 @@ public class HomePageController implements Initializable{
 							Scene scene = new Scene(root,1200,800);
 							String mainSceneCSS = getClass().getResource("/views/accountPage.css").toExternalForm();
 							scene.getStylesheets().add(mainSceneCSS);
-							Stage stage = new Stage();
+							stage = new Stage();
+							stage.setTitle(post.getUsername() + "'s " + "Account");
 							stage.setResizable(true);
 							stage.setScene(scene);
 							stage.show();
@@ -221,6 +226,8 @@ public class HomePageController implements Initializable{
 					@Override
 					public void handle(MouseEvent arg0) {
 						try {
+					    	Stage stage = (Stage)postHBox.getScene().getWindow();
+					    	stage.close();
 							FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/PostPage.fxml"));
 							Parent root = loader.load();
 							PostPageController controller = loader.getController();
@@ -229,7 +236,8 @@ public class HomePageController implements Initializable{
 							Scene scene = new Scene(root,1200,800);
 							String mainSceneCSS = getClass().getResource("/views/postPage.css").toExternalForm();
 							scene.getStylesheets().add(mainSceneCSS);
-							Stage stage = new Stage();
+							stage = new Stage();
+							stage.setTitle("Post");
 							stage.setResizable(true);
 							stage.setScene(scene);
 							stage.show();

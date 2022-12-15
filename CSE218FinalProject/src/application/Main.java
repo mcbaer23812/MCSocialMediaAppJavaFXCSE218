@@ -12,6 +12,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			primaryStage.setResizable(true);
+			primaryStage.setTitle("Login");
 			Parent root = FXMLLoader.load(getClass().getResource("/views/MainScene.fxml"));
 			Scene scene = new Scene(root,425,350);
 			String mainSceneCSS = getClass().getResource("/views/mainScene.css").toExternalForm();

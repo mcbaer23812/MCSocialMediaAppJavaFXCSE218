@@ -141,6 +141,7 @@ public class SignupPageController {
     			String mainSceneCSS = getClass().getResource("/views/mainScene.css").toExternalForm();
     			scene.getStylesheets().add(mainSceneCSS);
     			stage = new Stage();
+    			stage.setTitle("Login");
     			stage.setResizable(true);
     			stage.setScene(scene);
     			stage.show();

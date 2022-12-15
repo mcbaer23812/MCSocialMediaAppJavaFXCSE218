@@ -76,6 +76,7 @@ public class AccountPageController implements Initializable{
 			String mainSceneCSS = getClass().getResource("/views/homepage.css").toExternalForm();
 			scene.getStylesheets().add(mainSceneCSS);
 			stage = new Stage();
+			stage.setTitle("Home");
 			stage.setResizable(true);
 			stage.setScene(scene);
 			stage.show();
@@ -93,6 +94,7 @@ public class AccountPageController implements Initializable{
 			String mainSceneCSS = getClass().getResource("/views/searchPage.css").toExternalForm();
 			scene.getStylesheets().add(mainSceneCSS);
 			stage = new Stage();
+			stage.setTitle("Search");
 			stage.setResizable(true);
 			stage.setScene(scene);
 			stage.show();
@@ -185,6 +187,7 @@ public class AccountPageController implements Initializable{
     							String mainSceneCSS = getClass().getResource("/views/postPage.css").toExternalForm();
     							scene.getStylesheets().add(mainSceneCSS);
     							Stage stage = new Stage();
+    							stage.setTitle("Post");
     							stage.setResizable(true);
     							stage.setScene(scene);
     							stage.show();

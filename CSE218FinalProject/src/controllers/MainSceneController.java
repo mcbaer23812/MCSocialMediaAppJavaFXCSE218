@@ -49,6 +49,7 @@ public class MainSceneController {
 	    			String mainSceneCSS = getClass().getResource("/views/homepage.css").toExternalForm();
 	    			scene.getStylesheets().add(mainSceneCSS);
 	    			Stage stage = new Stage();
+	    			stage.setTitle("Home");
 	    			stage.setResizable(true);
 	    			stage.setScene(scene);
 	    			stage.show();
@@ -78,6 +79,7 @@ public class MainSceneController {
 			String mainSceneCSS = getClass().getResource("/views/signupPage.css").toExternalForm();
 			scene.getStylesheets().add(mainSceneCSS);
 			stage = new Stage();
+			stage.setTitle("Signup");
 			stage.setResizable(true);
 			stage.setScene(scene);
 			stage.show();
