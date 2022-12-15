@@ -130,6 +130,9 @@ public class AccountPageController implements Initializable{
     		}
     		
         	postListView.setCellFactory(param -> new ListCell<Post>() {
+        		{
+        			setPrefWidth(0);
+        		}
         		@Override
         		protected void updateItem(Post post, boolean empty) {
         			super.updateItem(post, empty);
@@ -178,7 +181,7 @@ public class AccountPageController implements Initializable{
     							PostPageController controller = loader.getController();
     							controller.setPost(post);
     							controller.initialize(null, null);
-    							Scene scene = new Scene(root,1000,800);
+    							Scene scene = new Scene(root,1200,800);
     							String mainSceneCSS = getClass().getResource("/views/postPage.css").toExternalForm();
     							scene.getStylesheets().add(mainSceneCSS);
     							Stage stage = new Stage();

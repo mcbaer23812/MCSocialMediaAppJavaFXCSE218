@@ -179,6 +179,9 @@ public class PostPageController implements Initializable{
 		}
 		
 		postListView.setCellFactory(param -> new ListCell<Post>() {
+    		{
+    			setPrefWidth(0);
+    		}
     		@Override
     		protected void updateItem(Post post, boolean empty) {
     			super.updateItem(post, empty);

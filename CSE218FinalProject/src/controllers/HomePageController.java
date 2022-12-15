@@ -153,6 +153,9 @@ public class HomePageController implements Initializable{
 		postListView.getItems().addAll(filteredPosts);
 		}
     	postListView.setCellFactory(param -> new ListCell<Post>() {
+    		{
+    			setPrefWidth(0);
+    		}
     		@Override
     		protected void updateItem(Post post, boolean empty) {
     			super.updateItem(post, empty);
@@ -171,7 +174,7 @@ public class HomePageController implements Initializable{
 							AccountPageController controller = loader.getController();
 							controller.setUser(UserData.getInstance().getUserMap().get(post.getUsername()));
 							controller.initialize(null, arg1);
-							Scene scene = new Scene(root,1000,800);
+							Scene scene = new Scene(root,1200,800);
 							String mainSceneCSS = getClass().getResource("/views/accountPage.css").toExternalForm();
 							scene.getStylesheets().add(mainSceneCSS);
 							Stage stage = new Stage();

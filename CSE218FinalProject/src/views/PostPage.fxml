@@ -29,8 +29,14 @@
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="25.0">
                <children>
-                  <Button fx:id="homeSceneBtn" mnemonicParsing="false" onAction="#homeScene" text="Home" />
-                  <Button fx:id="searchSceneBtn" mnemonicParsing="false" onAction="#searchScene" text="Search" />
+                  <Button fx:id="homeSceneBtn" mnemonicParsing="false" onAction="#homeScene" text="Home">
+                     <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                     </cursor></Button>
+                  <Button fx:id="searchSceneBtn" mnemonicParsing="false" onAction="#searchScene" text="Search">
+                     <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                     </cursor></Button>
                </children>
             </HBox>
          </children>
