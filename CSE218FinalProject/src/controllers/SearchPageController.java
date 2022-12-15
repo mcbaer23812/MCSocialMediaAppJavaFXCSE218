@@ -170,96 +170,100 @@ public class SearchPageController {
 			accountPaneView.getItems().addAll(accountTemplate);
 
 		LinkedList<Post> postsList = UserData.getInstance().getAllPosts();
-		for(Post post: postsList) {
-			if(post.getContent().contains(checkSearch)) {
-				Hyperlink usernameLink = new Hyperlink(post.getUsername());
-				usernameLink.setOnAction(new EventHandler<ActionEvent>() {
-					@Override
-					public void handle(ActionEvent arg0) {
-						try {
-					    	Stage stage = (Stage)usernameLink.getScene().getWindow();
-					    	stage.close();
-							FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/accountPage.fxml"));
-							Parent root = loader.load();
-							AccountPageController controller = loader.getController();
-							controller.setUser(UserData.getInstance().getUserMap().get(post.getUsername()));
-							controller.initialize(null, null);
-							Scene scene = new Scene(root,1200,800);
-							String mainSceneCSS = getClass().getResource("/views/accountPage.css").toExternalForm();
-							scene.getStylesheets().add(mainSceneCSS);
-							stage = new Stage();
-							stage.setTitle(post.getUsername() + "'s " + "Account");
-							stage.setResizable(true);
-							stage.setScene(scene);
-							stage.show();
-						} catch(IOException e) {
+		if(postsList == null) {
+			
+		} else {
+			for(Post post: postsList) {
+				if(post.getContent().contains(checkSearch)) {
+					Hyperlink usernameLink = new Hyperlink(post.getUsername());
+					usernameLink.setOnAction(new EventHandler<ActionEvent>() {
+						@Override
+						public void handle(ActionEvent arg0) {
+							try {
+						    	Stage stage = (Stage)usernameLink.getScene().getWindow();
+						    	stage.close();
+								FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/accountPage.fxml"));
+								Parent root = loader.load();
+								AccountPageController controller = loader.getController();
+								controller.setUser(UserData.getInstance().getUserMap().get(post.getUsername()));
+								controller.initialize(null, null);
+								Scene scene = new Scene(root,1200,800);
+								String mainSceneCSS = getClass().getResource("/views/accountPage.css").toExternalForm();
+								scene.getStylesheets().add(mainSceneCSS);
+								stage = new Stage();
+								stage.setTitle(post.getUsername() + "'s " + "Account");
+								stage.setResizable(true);
+								stage.setScene(scene);
+								stage.show();
+							} catch(IOException e) {
+								
+							}
 							
 						}
-						
+	        		});
+					usernameLink.setStyle("-fx-text-fill: white;");
+	    			String emptyString = "";
+	    			Label usernameLabel = new Label(emptyString, usernameLink);
+	    			usernameLabel.setStyle("-fx-text-fill: white;");
+					Label contentLabel = new Label(post.getContent());
+					contentLabel.setStyle("-fx-text-fill: white;");
+					File profilePicFile = new File("profilePictures/" + post.getUsername() + ".png");
+					if(profilePicFile.exists() == false) {
+						profilePicFile = new File("profilePictures/defaultUser.png");
 					}
-        		});
-				usernameLink.setStyle("-fx-text-fill: white;");
-    			String emptyString = "";
-    			Label usernameLabel = new Label(emptyString, usernameLink);
-    			usernameLabel.setStyle("-fx-text-fill: white;");
-				Label contentLabel = new Label(post.getContent());
-				contentLabel.setStyle("-fx-text-fill: white;");
-				File profilePicFile = new File("profilePictures/" + post.getUsername() + ".png");
-				if(profilePicFile.exists() == false) {
-					profilePicFile = new File("profilePictures/defaultUser.png");
+					Image profilePicImage = new Image(profilePicFile.toURI().toString());
+					ImageView profilePicView = new ImageView(profilePicImage);
+					profilePicView.setFitWidth(40);
+					profilePicView.setFitHeight(40);
+					profilePicView.setPreserveRatio(true);
+					profilePicView.setSmooth(true);
+	    			contentLabel.setPrefWidth(postListView.getPrefWidth());
+	    			contentLabel.setWrapText(true);
+	    			HBox userHBox = new HBox();
+	    			userHBox.getChildren().addAll(
+	    					profilePicView,
+	    					usernameLabel
+	    			);
+	    			 
+	    			Label postTime = new Label(post.getTime());
+	    			postTime.setStyle("-fx-text-fill:white;");
+	    			VBox postVBox = new VBox();
+	    			postVBox.setAlignment(Pos.TOP_LEFT);
+	    			postVBox.getChildren().addAll(
+	    					userHBox,
+	    					contentLabel,
+	    					postTime
+	    			);
+	    			HBox postHBox = new HBox();
+	    			postHBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
+						@Override
+						public void handle(MouseEvent arg0) {
+							try {
+						    	Stage stage = (Stage)postHBox.getScene().getWindow();
+						    	stage.close();
+								FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/PostPage.fxml"));
+								Parent root = loader.load();
+								PostPageController controller = loader.getController();
+								controller.setPost(post);
+								controller.initialize(null, null);
+								Scene scene = new Scene(root,1200,800);
+								String mainSceneCSS = getClass().getResource("/views/postPage.css").toExternalForm();
+								scene.getStylesheets().add(mainSceneCSS);
+								stage = new Stage();
+								stage.setTitle("Post");
+								stage.setResizable(true);
+								stage.setScene(scene);
+								stage.show();
+							} catch(IOException e) {
+								
+							}
+						}
+	    				
+	    			});
+	    			postHBox.setAlignment(Pos.TOP_LEFT);
+	    			postHBox.getChildren().addAll(postVBox);
+	    			postListView.getItems().add(postHBox);
 				}
-				Image profilePicImage = new Image(profilePicFile.toURI().toString());
-				ImageView profilePicView = new ImageView(profilePicImage);
-				profilePicView.setFitWidth(40);
-				profilePicView.setFitHeight(40);
-				profilePicView.setPreserveRatio(true);
-				profilePicView.setSmooth(true);
-    			contentLabel.setPrefWidth(postListView.getPrefWidth());
-    			contentLabel.setWrapText(true);
-    			HBox userHBox = new HBox();
-    			userHBox.getChildren().addAll(
-    					profilePicView,
-    					usernameLabel
-    			);
-    			 
-    			Label postTime = new Label(post.getTime());
-    			postTime.setStyle("-fx-text-fill:white;");
-    			VBox postVBox = new VBox();
-    			postVBox.setAlignment(Pos.TOP_LEFT);
-    			postVBox.getChildren().addAll(
-    					userHBox,
-    					contentLabel,
-    					postTime
-    			);
-    			HBox postHBox = new HBox();
-    			postHBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
-					@Override
-					public void handle(MouseEvent arg0) {
-						try {
-					    	Stage stage = (Stage)postHBox.getScene().getWindow();
-					    	stage.close();
-							FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/PostPage.fxml"));
-							Parent root = loader.load();
-							PostPageController controller = loader.getController();
-							controller.setPost(post);
-							controller.initialize(null, null);
-							Scene scene = new Scene(root,1200,800);
-							String mainSceneCSS = getClass().getResource("/views/postPage.css").toExternalForm();
-							scene.getStylesheets().add(mainSceneCSS);
-							stage = new Stage();
-							stage.setTitle("Post");
-							stage.setResizable(true);
-							stage.setScene(scene);
-							stage.show();
-						} catch(IOException e) {
-							
-						}
-					}
-    				
-    			});
-    			postHBox.setAlignment(Pos.TOP_LEFT);
-    			postHBox.getChildren().addAll(postVBox);
-    			postListView.getItems().add(postHBox);
 			}
 		}
 	}
