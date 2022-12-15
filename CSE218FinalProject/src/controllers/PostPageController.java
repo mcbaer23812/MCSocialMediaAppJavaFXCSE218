@@ -1,12 +1,12 @@
 package controllers;
 
 import java.io.File;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -31,7 +31,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Post;
-import model.User;
 import model.UserData;
 
 public class PostPageController implements Initializable{
